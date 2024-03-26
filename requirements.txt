@@ -1,4 +1,5 @@
 telebot
-logging==0.5.1.2
-pyfiglet==0.8.post1
-imdbpy==2021.4.18
+logging
+pyfiglet
+imdb
+requests
