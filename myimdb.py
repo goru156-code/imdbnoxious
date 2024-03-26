@@ -21,7 +21,7 @@ print(word)
 def start(message):
     """Greets the user and asks what they would like to watch."""
     user_first_name = message.from_user.first_name
-    greeting_message = f"Hi {user_first_name}!\n Send me the name of movie/series."
+    greeting_message = f"Hi {user_first_name}!\n Send me the name of movie."
     logger.info(f"User {user_first_name} started the conversation.")
     bot.send_message(message.chat.id, greeting_message)
     bot.register_next_step_handler(message, movies_handler)
@@ -59,7 +59,7 @@ def movies_handler(message):
             movie_info = (
             f"Title: {movie['title']}\n\n"
     f"Year: {movie['year']}\n\n"
-     f"Year: {director['name']}\n\n"
+     f"Director: {director['name']}\n\n"
     f"Genres: {', '.join(movie['genres'])}\n\n"
     f"Runtime: {movie['runtime'][0]} minutes\n\n"
     f"Rating: {movie['rating']}\n\n"
