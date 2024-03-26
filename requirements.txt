@@ -1,6 +1,0 @@
-python
-telebot
-logging
-pyfiglet
-imdb
-requests
