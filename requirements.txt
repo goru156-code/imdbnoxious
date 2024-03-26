@@ -1,0 +1,4 @@
+telebot
+imdb
+pyfiglet
+requests
