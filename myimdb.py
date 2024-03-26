@@ -1,12 +1,11 @@
-import os
 import telebot
 import logging
 import pyfiglet
 import imdb
 import requests
 from telebot import types
+from imdb import Cinemagoer
 
-port = int(os.environ.get('PORT', 5000))
 
 # Set up logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -36,34 +35,37 @@ def movies_handler(message):
         # Fetch the movie data from IMDb
         ia = imdb.IMDb()
         search_results = ia.search_movie(user_input)
-        
-        if not search_results:
-            bot.send_message(message.chat.id, "Sorry, no search results found.")
-            return
-        
         movie_id = search_results[0].getID()  # Get the first search result (assuming it's the correct movie).
         
+
         movie = ia.get_movie(movie_id)
         for director in movie['directors']:
-            (director['name'])
+        	(director['name'])
         plot = movie['plot'][0][:200] + '...'
+        ia = Cinemagoer()
         
-        # Rest of your code...
+        
 
+
+         
+        
         poster_url = movie['full-size cover url']
         poster_response = requests.get(poster_url)
         if poster_response.status_code == 200:
             with open('poster.png', 'wb') as poster_file:
                 poster_file.write(poster_response.content)
             # Prepare the message to send both poster and movie data
+      
             movie_info = (
-                f"Title: {movie['title']}\n\n"
-                f"Year: {movie['year']}\n\n"
-                f"Year: {director['name']}\n\n"  # Note: This line may need modification
-                f"Genres: {', '.join(movie['genres'])}\n\n"
-                f"Runtime: {movie['runtime'][0]} minutes\n\n"
-                f"Rating: {movie['rating']}\n\n"
-                f"Plot: {plot}"
+            f"Title: {movie['title']}\n\n"
+    f"Year: {movie['year']}\n\n"
+     f"Year: {director['name']}\n\n"
+    f"Genres: {', '.join(movie['genres'])}\n\n"
+    f"Runtime: {movie['runtime'][0]} minutes\n\n"
+    f"Rating: {movie['rating']}\n\n"
+    f"Plot: {plot}"
+  
+                
             )
             bot.send_photo(message.chat.id, open('poster.png', 'rb'), caption=movie_info, parse_mode='Markdown')
         else:
@@ -72,6 +74,5 @@ def movies_handler(message):
     except Exception as e:
         logger.error(f"An error occurred: {e}")
         bot.send_message(message.chat.id, "Sorry, something went wrong while fetching the movie data.")
-
 
 bot.polling()
