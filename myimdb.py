@@ -36,6 +36,11 @@ def movies_handler(message):
         # Fetch the movie data from IMDb
         ia = imdb.IMDb()
         search_results = ia.search_movie(user_input)
+        
+        if not search_results:
+            bot.send_message(message.chat.id, "Sorry, no search results found.")
+            return
+        
         movie_id = search_results[0].getID()  # Get the first search result (assuming it's the correct movie).
         
         movie = ia.get_movie(movie_id)
@@ -67,5 +72,6 @@ def movies_handler(message):
     except Exception as e:
         logger.error(f"An error occurred: {e}")
         bot.send_message(message.chat.id, "Sorry, something went wrong while fetching the movie data.")
+
 
 bot.polling()
