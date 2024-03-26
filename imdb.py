@@ -1,3 +1,4 @@
+import os
 import telebot
 import logging
 import pyfiglet
@@ -6,6 +7,7 @@ import requests
 from telebot import types
 from imdb import Cinemagoer
 
+port = int(os.environ.get('PORT', 5000))
 
 # Set up logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -75,5 +77,5 @@ def movies_handler(message):
         logger.error(f"An error occurred: {e}")
         bot.send_message(message.chat.id, "Sorry, something went wrong while fetching the movie data.")
 
-bot.polling()
+bot.polling(none_stop=True, timeout=600, interval=1, port=port)
       
