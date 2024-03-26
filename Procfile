@@ -1,1 +1,1 @@
-worker: python imdb.py
+worker: python myimdb.py
