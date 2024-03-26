@@ -68,4 +68,4 @@ def movies_handler(message):
         logger.error(f"An error occurred: {e}")
         bot.send_message(message.chat.id, "Sorry, something went wrong while fetching the movie data.")
 
-bot.polling(none_stop=True, timeout=600, interval=1, port=port)
+bot.polling()
